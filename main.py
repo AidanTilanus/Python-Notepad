@@ -147,20 +147,24 @@ class Notepad:
         
     def check_if_saved(self):
         if self.current_file_path:
-            with open(self.current_file_path, 'r') as file:
-                file_content = file.read().strip()
+            if self.autosaveBool.get():
+                self.save_file()
+                return True
+            else:
+                with open(self.current_file_path, 'r') as file:
+                    file_content = file.read().strip()
 
-            text_field_content = self.text_field.get(1.0, tk.END).strip()
+                text_field_content = self.text_field.get(1.0, tk.END).strip()
 
-            if file_content != text_field_content:
-                self.saveMessage = messagebox.askyesnocancel('Notepad', 'Do you want to save changes before closing?')
-                if self.saveMessage:
-                    self.save_file()
-                    return True
-                elif self.saveMessage == False:
-                    return True
-                else:
-                    return False
+                if file_content != text_field_content:
+                    self.saveMessage = messagebox.askyesnocancel('Notepad', 'Do you want to save changes before closing?')
+                    if self.saveMessage:
+                        self.save_file()
+                        return True
+                    elif self.saveMessage == False:
+                        return True
+                    else:
+                        return False
         else:
             if self.text_field.get(1.0, tk.END).strip():
                 self.saveMessage = messagebox.askyesnocancel('Notepad', 'Do you want to save changes before closing?')
