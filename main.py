@@ -70,7 +70,7 @@ class Notepad:
 
     def new_file(self, event=None):
         saved = self.check_if_saved()
-        if saved:
+        if saved or saved == None:
             self.text_field.delete(1.0, tk.END)
             self.current_file_path = None
 
@@ -123,7 +123,7 @@ class Notepad:
         
     def close_notepad(self):
         saved = self.check_if_saved()
-        if saved:
+        if saved or saved == None:
             self.save_config()
             self.root.destroy()
         
