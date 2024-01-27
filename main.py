@@ -111,7 +111,7 @@ class Notepad:
             self.show_load_error()
             
     def show_load_error(self):
-        messagebox.showerror("Notepad', 'couldn't read the file!")
+        messagebox.showerror('Notepad', "couldn't read the file!")
         self.new_file()
             
     def autosave(self):
@@ -143,7 +143,7 @@ class Notepad:
             with open(self.config_file, 'w') as configfile:
                 self.config.write(configfile)
         except configparser.Error as e:
-            pass
+            messagebox.showerror('Notepad', e)
         
     def check_if_saved(self):
         if self.current_file_path:
