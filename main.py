@@ -158,22 +158,22 @@ class Notepad:
 
                 if file_content != text_field_content:
                     self.saveMessage = messagebox.askyesnocancel('Notepad', 'Do you want to save changes before closing?')
-                    if self.saveMessage:
+                    if self.saveMessage is True:
                         self.save_file()
                         return True
-                    elif self.saveMessage == False:
+                    elif self.saveMessage is False:
                         return True
-                    else:
+                    else: # Handle the case when the user cancels the operation
                         return False
         else:
             if self.text_field.get(1.0, tk.END).strip():
                 self.saveMessage = messagebox.askyesnocancel('Notepad', 'Do you want to save changes before closing?')
-                if self.saveMessage:
+                if self.saveMessage is True:
                     self.save_file()
                     return True
-                elif self.saveMessage == False:
+                elif self.saveMessage is False:
                     return True
-                else:
+                else: # Handle the case when the user cancels the operation
                     return False
             else:
                 return True
