@@ -9,7 +9,7 @@ class Notepad:
     def __init__(self, root, config_file='notepad_config.ini'):
         self.root = root
         self.root.title('Notepad')
-        self.root.geometry('400x300') 
+        self.root.geometry('400x300')
         
         #config
         self.config_file = config_file
@@ -84,7 +84,7 @@ class Notepad:
                 with open(file_save_path, 'w') as file:
                     file.write(self.text_field.get(1.0, tk.END))
                     
-            self.current_file_path = file_save_path
+                self.current_file_path = file_save_path
 
     def save_file_as(self, event=None):
         self.current_file_path = None
