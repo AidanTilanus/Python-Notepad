@@ -1,3 +1,4 @@
 tkinterdnd2
 configparser
-
+pyperclip
+plyer

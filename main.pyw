@@ -4,11 +4,15 @@ from tkinter import messagebox
 from tkinterdnd2 import DND_FILES, TkinterDnD
 import re
 import configparser
+import pyperclip
+from plyer import notification
+
+NOTEPAD_NAME = 'Notepad'
 
 class Notepad:
     def __init__(self, root, config_file='notepad_config.ini'):
         self.root = root
-        self.root.title('Notepad')
+        self.root.title(NOTEPAD_NAME)
         self.root.geometry('400x300')
         
         #config
@@ -42,6 +46,11 @@ class Notepad:
         self.settings_menu = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_bar.add_cascade(label='Settings', menu=self.settings_menu)
         self.settings_menu.add_checkbutton(label='Auto Save', variable=self.autosaveBool)
+        
+        # Add tools menu
+        self.tools_menu = tk.Menu(self.menu_bar, tearoff=0)
+        self.menu_bar.add_cascade(label='Tools', menu=self.tools_menu)
+        self.tools_menu.add_command(label='Copy Text', command=self.copy_text)
         
         #Add key commands
         self.root.bind('<Control-n>', self.new_file)
@@ -120,6 +129,10 @@ class Notepad:
                 self.save_file()
             
         self.root.after(60000, self.autosave)
+        
+    def copy_text(self, event=None):
+        pyperclip.copy(self.text_field.get("1.0", tk.END))
+        notification.notify(title=NOTEPAD_NAME, message="Copied all the text in the file use Ctrl+V to paste the text.", timeout=10)
         
     def close_notepad(self):
         saved = self.check_if_saved()
