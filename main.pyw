@@ -50,7 +50,7 @@ class Notepad:
         # Add tools menu
         self.tools_menu = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_bar.add_cascade(label='Tools', menu=self.tools_menu)
-        self.tools_menu.add_command(label='Copy Text', command=self.copy_text)
+        self.tools_menu.add_command(label='Copy Text', command=self.copy_text, accelerator='Ctrl+Shift+C')
         
         #Add key commands
         self.root.bind('<Control-n>', self.new_file)
@@ -64,6 +64,9 @@ class Notepad:
         
         self.root.bind('<Control-o>', self.open_file)
         self.root.bind('<Control-O>', self.open_file)
+        
+        self.root.bind('<Control-Shift-c>', self.copy_text)
+        self.root.bind('<Control-Shift-C>', self.copy_text)
         
         #setup drag and drop
         self.root.drop_target_register(DND_FILES)
