@@ -6,6 +6,7 @@ import re
 import configparser
 import pyperclip
 from plyer import notification
+import subprocess
 
 NOTEPAD_NAME = 'Notepad'
 
@@ -51,6 +52,17 @@ class Notepad:
         self.tools_menu = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_bar.add_cascade(label='Tools', menu=self.tools_menu)
         self.tools_menu.add_command(label='Copy Text', command=self.copy_text, accelerator='Ctrl+Shift+C')
+
+        # Create a submenu for run types
+        self.run_types = tk.Menu(self.tools_menu, tearoff=False)
+
+        self.tools_menu.add_cascade(label="Run", menu=self.run_types)
+        self.run_types.add_command(label="Python", command=lambda: self.run_script('python'))
+        self.run_types.add_command(label="Perl", command=lambda: self.run_script('perl'))
+        self.run_types.add_command(label="Ruby", command=lambda: self.run_script('ruby'))
+        self.run_types.add_command(label="Bash", command=lambda: self.run_script('bash'))
+        self.run_types.add_command(label="PHP", command=lambda: self.run_script('php'))
+        self.run_types.add_command(label="Node.js", command=lambda: self.run_script('node'))
         
         #Add key commands
         self.root.bind('<Control-n>', self.new_file)
@@ -193,6 +205,12 @@ class Notepad:
                     return False
             else:
                 return True
+            
+    def run_script(self, language):
+        if self.current_file_path:
+            subprocess.Popen(["start", "cmd", "/k", language, self.current_file_path], shell=True)
+        else:
+            messagebox.showerror('Notepad', "file is not saved!")
 
 
 if __name__ == '__main__':
